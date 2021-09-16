@@ -3,7 +3,8 @@ import sendAccessTokenViaCookie from "../../../../src/lib/sendAccessTokenViaCook
 import signAccessToken from "../../../../src/lib/signAccessToken";
 import cookies from "../../../../src/middlewares/cookies";
 import UserModel from "../../../../src/models/UserModel";
-const facebookCallbackHandler = (req, res) => {
+const facebookCallbackHandler = async (req, res) => {
+  await connectDB();
   switch (req.method) {
     case "GET": {
       return handleFacebookCallback(req, res);

@@ -1,4 +1,4 @@
-import { Schema, model, modelNames } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const userSchema = new Schema(
   {
@@ -23,8 +23,4 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-const UserModel = modelNames().includes("User")
-  ? model("User")
-  : model("User", userSchema);
-
-export default UserModel;
+export default models.User || model("User", userSchema);

@@ -2,14 +2,13 @@ import GoogleOAuth2Client from "../../../../src/lib/GoogleOAuth2Client";
 
 import connectDB from "./../../../../src/lib/connectDB";
 
-connectDB();
-
 import signAccessToken from "../../../../src/lib/signAccessToken";
 import UserModel from "../../../../src/models/UserModel";
 import sendAccessTokenViaCookie from "../../../../src/lib/sendAccessTokenViaCookie";
 import cookies from "../../../../src/middlewares/cookies";
 
-const googleCallbackHandler = (req, res) => {
+const googleCallbackHandler = async (req, res) => {
+  await connectDB();
   if (req.method === "GET") {
     return handleGoogleCallback(req, res);
   }
@@ -21,6 +20,7 @@ const googleCallbackHandler = (req, res) => {
 
 const handleGoogleCallback = async (req, res) => {
   const { code } = req.query;
+  console.log(code);
   const { tokens } = await GoogleOAuth2Client.getToken(code);
 
   GoogleOAuth2Client.setCredentials(tokens);
@@ -33,8 +33,6 @@ const handleGoogleCallback = async (req, res) => {
   let user = await UserModel.findOne({
     $or: [{ googleId: profile.sub }, { email: profile.email }],
   });
-
-  console.log("MONGODB USER", user);
 
   if (!user) {
     user = await UserModel.create({

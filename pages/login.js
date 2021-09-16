@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 // mui icons
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
-import TwitterIcon from "@mui/icons-material/Twitter";
 
 // custom
 import MainLayout from "../src/layout/MainLayout/MainLayout";
@@ -50,22 +49,6 @@ const LoginPage = () => {
             }}
           >
             Continue with Facebook
-          </Button>
-          <Button
-            size="large"
-            variant="outlined"
-            color="primary"
-            startIcon={<TwitterIcon />}
-            fullWidth
-            component="a"
-            href="/api/auth/twitter"
-            sx={{
-              color: (theme) => theme.palette.twitter,
-              borderColor: (theme) => theme.palette.twitter,
-            }}
-            disabled
-          >
-            Continue with Twitter
           </Button>
         </Stack>
       </Container>
